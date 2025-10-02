@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hinhnen"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giám Sát Nhiệt Độ &amp; Độ Ẩm"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Hiển thị các giá trị cảm biến -->
+    <LinearLayout
+        android:id="@+id/valueLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tempTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Nhiệt độ: -- °C"
+            android:textColor="#FFC300"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/humiTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Độ ẩm: -- %"
+            android:textColor="#3498DB"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/soilMoistureTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Độ ẩm đất: -- %"
+            android:textColor="#27AE60"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Spinner chọn loại cây -->
+    <Spinner
+        android:id="@+id/plantSpinner"
+        android:layout_width="176dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/valueLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Button gửi lên Firebase -->
+    <Button
+        android:id="@+id/btnSendToFirebase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Gửi lên Firebase"
+        app:layout_constraintTop_toBottomOf="@id/valueLayout"
+        app:layout_constraintStart_toEndOf="@id/plantSpinner"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bảng Min - Max -->
+    <TableLayout
+        android:id="@+id/thresholdTable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:stretchColumns="1"
+        app:layout_constraintTop_toBottomOf="@id/plantSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TableRow>
+            <TextView
+                android:padding="8dp"
+                android:text="Chỉ số"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Min"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Hiện tại"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Max"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:padding="8dp"
+                android:text="Nhiệt độ" />
+
+            <EditText
+                android:id="@+id/etTempMin"
+                android:hint="Nhập Min"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/tempValue"
+                android:padding="8dp"
+                android:text="--" />
+
+            <EditText
+                android:id="@+id/etTempMax"
+                android:hint="Nhập Max"
+                android:inputType="numberDecimal" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:padding="8dp"
+                android:text="Độ ẩm" />
+
+            <EditText
+                android:id="@+id/etHumiMin"
+                android:hint="Nhập Min"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/humiValue"
+                android:padding="8dp"
+                android:text="--" />
+
+            <EditText
+                android:id="@+id/etHumiMax"
+                android:hint="Nhập Max"
+                android:inputType="numberDecimal" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:padding="8dp"
+                android:text="Độ ẩm đất" />
+
+            <EditText
+                android:id="@+id/etSoilMin"
+                android:hint="Nhập Min"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/soilValue"
+                android:padding="8dp"
+                android:text="--" />
+
+            <EditText
+                android:id="@+id/etSoilMax"
+                android:hint="Nhập Max"
+                android:inputType="numberDecimal" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- Container cột ngang chứa Left Column (mode, relay, wind, rain) và Right Column (water level) -->
+    <LinearLayout
+        android:id="@+id/columnContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/thresholdTable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Left Column: Mode spinner, Relay và Wind/Rain -->
+        <LinearLayout
+            android:id="@+id/leftColumn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/modeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp" />
+
+            <Switch
+                android:id="@+id/switchRelay1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Bật/Tắt Relay 1"
+                android:textSize="18sp" />
+
+            <Switch
+                android:id="@+id/switchRelay2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Bật/Tắt Relay 2"
+                android:textSize="18sp" />
+
+            <!-- Relay 3 mới -->
+            <Switch
+                android:id="@+id/switchRelay3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Bật/Tắt Relay 3"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/windLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/windIcon"
+                    android:layout_width="72dp"
+                    android:layout_height="75dp"
+                    android:contentDescription="Wind Icon"
+                    android:src="@drawable/ic_wind" />
+
+                <TextView
+                    android:id="@+id/windSpeedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Tốc độ gió: 0 m/s"
+                    android:textColor="#D16262"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/rainIcon"
+                    android:layout_width="72dp"
+                    android:layout_height="75dp"
+                    android:contentDescription="Rain Icon"
+                    android:src="@drawable/ic_rain" />
+
+                <TextView
+                    android:id="@+id/rainSpeedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Lượng mưa: 0 mm"
+                    android:textColor="#D16262"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Right Column: Water Level Info -->
+        <LinearLayout
+            android:id="@+id/rightColumn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/waterLevelImage"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:src="@drawable/water_level_0" />
+            <TextView
+                android:id="@+id/waterLevelValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mực nước: -- cm"
+                android:textColor="#00BCD4"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/distanceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khoảng cách: -- cm"
+                android:textColor="#00BCD4"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

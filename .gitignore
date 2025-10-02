@@ -1,0 +1,24 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+
+# Java / Kotlin / Android
+*.iml
+.gradle/
+local.properties
+.idea/
+*/build/
+build/
+
+# Log
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+# Secrets
+*.json
