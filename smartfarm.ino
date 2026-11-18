@@ -10,11 +10,11 @@
 // -----------------------
 // CHUỖI HẰNG & PROGMEM
 // -----------------------
-const char wifiSSID[]        PROGMEM = "CV_RoboticX7.6";
-const char wifiPassword[]    PROGMEM = "J4e4muVG";
-const char firebaseHostStr[] PROGMEM = "https://smart-farm-6e42d-default-rtdb.firebaseio.com/";
-const char firebaseAuthStr[] PROGMEM = "4f7g1uNVtrAjqTxmogIyllftmV5qYvmTwQrhtj70";
-const char Web_App_URL[]     PROGMEM = "https://script.google.com/macros/s/AKfycbxRM0Qr2IkED0bCpfe_qPI227HyKa1a-ia8DvERRA9Hr0aPcs7--DopAhzH6ekQ5nDq/exec";  // Thay YOUR_SCRIPT_ID bằng ID của bạn
+const char wifiSSID[]        PROGMEM = "--";
+const char wifiPassword[]    PROGMEM = "--";
+const char firebaseHostStr[] PROGMEM = "--";
+const char firebaseAuthStr[] PROGMEM = "--";
+const char Web_App_URL[]     PROGMEM = "--";  // Thay YOUR_SCRIPT_ID bằng ID của bạn
 
 // Bộ đệm để copy chuỗi từ PROGMEM
 char ssidBuffer[32];
